@@ -1,0 +1,33 @@
+{
+	"name": "core-repository",
+	"version": "0.0.1",
+	"description": "Repository Pattern for Type Script",
+	"main": "dist/index.js",
+	"scripts": {
+		"all": "run-s build cover",
+		"prebuild": "npm run clean",
+		"build": "tsc",
+		"clean": "rimraf dist",
+		"test": "mocha -r ts-node/register test/**/*Test.ts",
+		"cover": "nyc --reporter=lcov --reporter=text-summary mocha -r ts-node/register test/**/*Test.ts"
+	},
+	"author": "Sun, Xufei",
+	"license": "MIT",
+	"dependencies": {
+		"reflect-metadata": "^0.1.13",
+		"typescript": "^3.6.4"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.2.4",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.12.11",
+		"chai": "^4.2.0",
+		"mocha": "^6.2.2",
+		"npm-run-all": "^4.1.5",
+		"nyc": "^14.1.1",
+		"rimraf": "^3.0.0",
+		"ts-mockito": "^2.5.0",
+		"ts-node": "^8.4.1"
+	},
+	"homepage": "https://github.com/SparkleX/core-repository"
+}
