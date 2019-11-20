@@ -26,6 +26,7 @@ class RepoHandlerImpl implements RepositoryHandler {
 Use repository
 
 ```ts
-        var orderRepository = RepositoryFactory.newRepository(OrderRepository, handlerInstance);
-        var result = await orderRepository.findById(1);
+    var handlerInstance = new RepoHandlerImpl();
+    var orderRepository = RepositoryFactory.newRepository(OrderRepository, handlerInstance);
+    var result = await orderRepository.findById(1);
 ```
