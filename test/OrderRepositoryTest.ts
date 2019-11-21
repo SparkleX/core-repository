@@ -28,5 +28,11 @@ describe( __filename, () => {
         expect(result).to.equal(rt);
         //verify mock
         verify(mockedHandler.execute('select * from "order" where "id" = ?',deepEqual([1]))).called();        
-    });
+	});
+    it("findByLastName", async () => {
+        let handlerInstance:RepoHandlerImpl = new RepoHandlerImpl();
+        var orderRepository = RepositoryFactory.newRepository(OrderRepository, handlerInstance);
+        var result = await orderRepository.findByLastName(); 
+        expect(result).to.equal(404);
+    });	
 });

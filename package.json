@@ -1,6 +1,6 @@
 {
 	"name": "core-repository",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Repository Pattern for Type Script",
 	"main": "dist/index.js",
 	"scripts": {

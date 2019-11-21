@@ -4,8 +4,9 @@ export interface RepositoryHandler {
 }
 
 export class RepositoryFactory {
-    public static newRepository<REPO>(c: new () => REPO,  callback:RepositoryHandler): REPO {
-        var face:REPO = new c();
+    public static newRepository<REPO>(c: new (...param:any) => REPO,  callback:RepositoryHandler, param?:any[]): REPO {
+		var par:any[] = [null].concat(param);
+        var face:REPO = new (Function.prototype.bind.apply(c, par));//c.apply(null, param);
         var proxyHandler = new MyProxy(callback);
         var p = new Proxy(face, proxyHandler);
         return p;
@@ -28,10 +29,13 @@ class MyProxy implements ProxyHandler<any> {
     }
     get? (target: any, propKey:PropertyKey, receiver: any): any{
         var func = propKey.toString();
-        var sql = Reflect.getMetadata(Query.QUERY_METADATA_KEY, target, func);
-
-        var repoData = new RepositoryData(sql, this.handler);
-        return proxyFunction.bind(repoData);
+		var sql = Reflect.getMetadata(Query.QUERY_METADATA_KEY, target, func);
+		if(sql) {
+	        var repoData = new RepositoryData(sql, this.handler);
+			return proxyFunction.bind(repoData);
+		}else {
+			return target[propKey];
+		}
     } 
 }
 async function proxyFunction (...params:any):Promise<any[]> {
